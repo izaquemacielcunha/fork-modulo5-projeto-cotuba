@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Comparator;
 
+import br.com.unipds.ebook.EbookType;
 import org.apache.commons.cli.CommandLine;
 
 public class Directory {
@@ -19,7 +20,7 @@ public class Directory {
 
     public DirectoryInfos buildDirectoryInfos() {
         Path diretorioDosMD;
-        String formato;
+        EbookType formato;
         Path arquivoDeSaida;
         boolean modoVerboso;
 
@@ -39,9 +40,9 @@ public class Directory {
             String nomeDoFormatoDoEbook = cmd.getOptionValue("format");
 
             if (nomeDoFormatoDoEbook != null) {
-                formato = nomeDoFormatoDoEbook.toLowerCase();
+                formato = EbookType.findByName(nomeDoFormatoDoEbook);
             } else {
-                formato = "pdf";
+                formato = EbookType.PDF;
             }
 
             String nomeDoArquivoDeSaidaDoEbook = cmd.getOptionValue("output");
@@ -49,7 +50,7 @@ public class Directory {
             if (nomeDoArquivoDeSaidaDoEbook != null) {
                 arquivoDeSaida = Paths.get(nomeDoArquivoDeSaidaDoEbook);
             } else {
-                arquivoDeSaida = Paths.get("book." + formato.toLowerCase());
+                arquivoDeSaida = Paths.get("book." + formato.name().toLowerCase());
             }
             if (Files.isDirectory(arquivoDeSaida)) {
                 Files.walk(arquivoDeSaida).sorted(Comparator.reverseOrder())

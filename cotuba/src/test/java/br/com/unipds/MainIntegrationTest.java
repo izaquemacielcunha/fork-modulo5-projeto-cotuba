@@ -37,6 +37,9 @@ class MainIntegrationTest {
         // Cria o arquivo de teste
         arquivoMd = diretorioDosMd.resolve("01-introducao.md");
         Files.writeString(arquivoMd, "# Capítulo Teste\n\nEste é um conteúdo de um arquivo Markdown.");
+
+        Path arquivoProperties = diretorioDosMd.resolve("cotuba.properties");
+        Files.writeString(arquivoProperties, "cotuba.ebook.titulo=Teste de Ebook\ncotuba.ebook.autor=Autor de Teste");
     }
 
     @AfterEach
